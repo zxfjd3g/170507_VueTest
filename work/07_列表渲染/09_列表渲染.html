@@ -46,7 +46,9 @@
       },
 
       updateP (index, newP) {
-        // this.persons[index] = newP  // 界面不会更新
+        //this.persons[index] = newP  // 界面不会更新
+        // this.persons = []
+
         this.persons.splice(index, 1, newP) // 替换
         // this.persons.splice(index, 0, newP) // 添加
       }
