@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>05_模板语法</title>
+</head>
+<body>
+<!--
+1. 表达式 :
+  语法: {{exp}} 或 {{{exp}}}
+  功能: 向页面输出数据
+  可以调用对象的方法
+2. 强制数据绑定:
+  完整写法:
+    v-bind:xxx='yyy'  //yyy会作为表达式解析执行
+  简洁写法:
+    :xxx='yyy'
+3. 事件监听:
+  完整写法:
+    v-on:keyup='xxx'
+    v-on:keyup='xxx(参数)'
+    v-on:keyup.enter='xxx'
+  简洁写法:
+    @keyup='xxx'
+    @keyup.enter='xxx'
+-->
+<div id="app">
+
+  <h2>1. 表达式</h2>
+    <p>{{msg}}</p>
+    <p>{{msg.toUpperCase()}}</p>
+  <h2>2. 强制数据绑定:</h2>
+  <a v-bind:href="src">去尚硅谷</a><br>
+  <a :href="src">去尚硅谷2</a><br>
+  <img :src="imgSrc">
+  <h2>3. 事件监听:</h2>
+  <input type="text" @keyup.enter="readValue">
+  <input type="text" @keyup.enter="readValue2('xfzhang', $event)">
+</div>
+
+<script type="text/javascript" src="../js/vue.js"></script>
+<script type="text/javascript">
+  new Vue({
+    el : '#app',
+    data : {
+      msg: 'I Will Back',
+      src: 'http://www.atguigu.com',
+      imgSrc: 'https://cn.vuejs.org/images/logo.png'
+    },
+    methods : {
+      readValue (event) {
+        alert(event.target.value)
+      },
+      readValue2 (name, event) {
+        alert(name+'----'+event.target.value)
+        console.log('readValue2', name, event)
+      }
+    }
+  })
+</script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>06_计算属性</title>
+</head>
+<body>
+<!--
+  计算属性
+    1. 在computed属性对象中定义计算属性的方法
+    2. 在页面中使用{{方法名}}来显示计算的结果
+  监视属性:
+    1. 通过通过vm对象的$watch()或watch配置来监视指定的属性
+    2. 当属性变化时, 回调函数自动调用, 在函数内部进行计算
+  计算属性高级:
+    1. 通过get/set方法实现对属性数据的显示和监视
+    2. 计算属性存在缓存, 多次读取只执行一次
+
+  什么时候考虑用计算属性?:
+    要得到的动态可以根据其它的数据计算产生: fullName = firstName  + '-' + lastName
+-->
+<div id="demo">
+  姓: <input type="text" placeholder="First Name" v-model="firstName"><br>
+  名: <input type="text" placeholder="Last Name" v-model="lastName"><br>
+  姓名1(单向): <input type="text" placeholder="Full Name" v-model="fullName"><br>
+  姓名2(单向): <input type="text" placeholder="Full Name" v-model="fullName2"><br>
+  姓名3(双向): <input type="text" placeholder="Full Name2" v-model="fullName3"><br>
+
+  <p>{{fullName}}</p>
+  <p>{{fullName}}</p>
+</div>
+
+<script type="text/javascript" src="../js/vue.js"></script>
+<script type="text/javascript">
+  const vm = new Vue({
+    el : '#demo',
+    data : {
+      firstName: 'Kobe',
+      lastName: 'Bryant',
+      fullName2: 'Kobe-Bryant'
+    },
+    computed: {
+      // a computed getter
+      fullName () {
+        console.log('fullName()')
+        return this.firstName  + '-' + this.lastName
+      },
+
+      fullName3: {
+        // 用来得到当前属性值的回调函数, 当我们读取当前属性值时自动调用
+        get () {
+          console.log('fullName3() get()')
+          return this.firstName  + '-' + this.lastName
+        },
+        // 用来监视当前属性值变化的回调函数, 当我们修改了当前属性值时自动调用
+        set (value) {// value是当前fullName3最新的属性值
+          console.log('fullName3() set()', value)
+          // 更新firstName, lastName
+          const names = value.split('-')
+          this.firstName = names[0]
+          this.lastName = names[1]
+        }
+      }
+    },
+    watch: {
+      firstName (value) { // 监视firstName
+        // 更新fullName2
+        this.fullName2 = value + '-' + this.lastName
+      }
+    }
+  })
+
+  // 监视lastName
+  vm.$watch('lastName', function (value) {
+    // 更新fullName2
+    this.fullName2 = this.firstName + '-' + value
+  })
+</script>
+</body>
+</html>
