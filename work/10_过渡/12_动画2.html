@@ -3,12 +3,45 @@
 <head>
   <meta charset="UTF-8">
   <title>15_动画</title>
+  <style>
+    .xxx-enter-active { /*指定进入css过渡*/
+      transition: all .5s
+    }
+
+    .xxx-leave-active { /*指定离开css过渡*/
+      transition: all 2s
+    }
+    .xxx-enter, .xxx-leave-to {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+  </style>
 </head>
 <body>
+<!--
+1. 在发生动画的标签外写<transition name='xxx'>
+2. 定义样式
+  .xxx-enter-active: 进入动画的css过渡
+  .xxx-leave-active: 离开动画的css过渡
+  .xxx-enter, .xxx-leave-to: 指定隐藏时的样式
+-->
+
+<div id="test">
+  <button @click="isShow=!isShow">切换</button>
+  <transition name="xxx">
+    <p v-show="isShow">atguigu.com</p>
+  </transition>
+
+</div>
 
 <script type="text/javascript" src="../js/vue.js"></script>
 <script type="text/javascript">
-
+  new Vue({
+    el : '#test',
+    data : {
+      isShow: true
+    }
+  })
 </script>
 </body>
 </html>

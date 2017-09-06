@@ -3,13 +3,48 @@
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
+  <style>
+    .bounce-enter-active {
+      animation: bounce-in .5s;
+    }
 
+    .bounce-leave-active {
+      animation: bounce-in .5s reverse;
+    }
+
+    @keyframes bounce-in {
+      0% {
+        transform: scale(0);
+      }
+      50% {
+        transform: scale(1.5);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+  </style>
 </head>
 <body>
 
 
+<div id="test">
+  <button @click="isShow=!isShow">切换</button>
+  <br>
+  <transition name="bounce">
+    <span v-show="isShow" style="background: red; display: inline-block">atguigu.com</span>
+  </transition>
+
+</div>
+
 <script type="text/javascript" src="../js/vue.js"></script>
-<script>
+<script type="text/javascript">
+  new Vue({
+    el : '#test',
+    data : {
+      isShow: true
+    }
+  })
 </script>
 </body>
 </html>
