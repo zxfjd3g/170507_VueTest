@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>09_列表渲染</title>
+</head>
+<body>
+
+<!--
+过滤显示列表
+1. 使用计算属性对总数组进行过滤计算
+2. 删除/更新的条件不能再是index, 只能根据item删除
+-->
+
+<div id="demo">
+  <h2>过滤显示列表</h2>
+  <p><input type="text" v-model="searchName"></p>
+  <ul>
+    <li v-for="(p, index) in filterPersons">
+      {{index}}---{{p.name}}---{{p.age}}
+      ---
+      <button @click="deleteP(p)">删除</button>
+      ---
+      <button @click="updateP(p, {name:'Jack', age:15})">更新</button>
+    </li>
+  </ul>
+</div>
+
+<script type="text/javascript" src="../js/vue.js"></script>
+<script type="text/javascript">
+  new Vue({
+    el: '#demo',
+    data: { // vm对data中所有的属性进行了监视(set方法), 一旦变化更新对应的界面
+      searchName: '',
+      persons: [
+        {name: 'Tom', age: 11},
+        {name: 'Jack', age: 12},
+        {name: 'Bob', age: 13},
+        {name: 'Cat', age: 14}
+      ]
+    },
+    methods: {
+      deleteP (p) {
+        // 计算下标
+        const index = this.persons.indexOf(p)
+        // 删除
+        this.persons.splice(index, 1) // 不是调用数组原生的splice, 而是包装方法
+      },
+
+      updateP (oldP, newP) {
+        // 计算下标
+        const index = this.persons.indexOf(oldP)
+
+        // this.persons[index] = newP  // 界面不会更新
+        this.persons.splice(index, 1, newP) // 替换
+        // this.persons.splice(index, 0, newP) // 添加
+      }
+    },
+    computed: {
+      filterPersons () {
+        const searchName = this.searchName.trim()
+        if(!searchName) {
+          return this.persons
+        } else {
+          return this.persons.filter(p => p.name.indexOf(this.searchName)>=0)
+        }
+
+      }
+    }
+  })
+</script>
+</body>
+</html>
