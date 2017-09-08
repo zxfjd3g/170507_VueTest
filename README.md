@@ -2,7 +2,7 @@
 	一位华裔前Google工程师开发的前端js库
 	一个MVVM框架
 	核心概念
-	  数据绑定
+	  数据绑定(驱动): model(data) --->界面
 	  组件
 	借鉴angular的模板和数据绑定技术
 	借鉴react的组件化和虚拟DOM技术
@@ -42,21 +42,23 @@
 		在创建对象时指定: get name () {return xxx} / set name (value) {}
 	  	对象创建之后指定: Object.defineProperty(obj, age, {get(){}, set(value){}})
 ## watch
-	Vue.$watch()
+	vm.$watch('a', function(newValue, oldValue){})
 	包含多个属性监视的对象
 	分为一般监视和深度监视
-		'xxx' : {
-			deep : true,
-			handler : fun(value)
-		}
-
-
+	watch: {
+	  a: function(newValue, oldValue){},
+	  'xxx' : {
+          deep : true,
+          handler : fun(value)
+      }
+	}
+	
 # 4. 过渡动画
 	利用vue去操控css的transition/animation动画
 	模板: 使用<transition name='xxx'>包含带动画的标签
 	css样式
-		.fade-enter-active: 进入过程, 指定进入的transition
-		.fade-leave-active: 离开过程, 指定离开的transition
+		.xxx-enter-active: 进入过程, 指定进入的transition
+		.xxx-leave-active: 离开过程, 指定离开的transition
 		.xxx-enter, .xxx-leave-to: 指定隐藏的样式
 	编码例子
 	    .xxx-enter-active, .xxx-leave-active {
