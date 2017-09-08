@@ -9,7 +9,7 @@
 <!--
 1. 注册全局指令
   Vue.directive('my-directive', function(el, binding){
-    el.innerHTML = binding.value.toupperCase();
+    el.textContent = binding.value.toupperCase();
   })
 2. 注册局部指令
   directives : {
@@ -23,9 +23,47 @@
   v-my-directive='xxx'
 -->
 
+<!--
+全局: v-upper-text
+局部: v-lower-text
+-->
+
+<div id="test1">
+ <p v-upper-text="msg"></p>
+ <p v-lower-text="msg"></p>
+</div>
+
+<div id="test2">
+  <p v-upper-text="msg"></p>
+  <p v-lower-text="msg"></p><!--不能使用-->
+</div>
+
 <script type="text/javascript" src="../js/vue.js"></script>
 <script type="text/javascript">
 
+  //注册全局指令
+  Vue.directive('upper-text', function (el, binding) {
+    el.textContent = binding.value.toUpperCase()
+  })
+
+  new Vue({
+    el : '#test1',
+    data : {
+      msg: 'NBA I Love This Game'
+    },
+    directives: {
+      'lower-text': function (el, binding) {
+        el.textContent = binding.value.toLowerCase()
+      }
+    }
+  })
+
+  new Vue({
+    el : '#test2',
+    data : {
+      msg: 'NBA I Love This Game2'
+    }
+  })
 </script>
 </body>
 </html>

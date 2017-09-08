@@ -3,6 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <title>14_内置指令</title>
+  <style>
+    [v-cloak] {
+      display: none;
+    }
+  </style>
 </head>
 <body>
 <!--
@@ -19,9 +24,27 @@
   v-cloak : 使用它防止闪现表达式, 与css配合: [v-cloak] { display: none }
 -->
 
+<div id="app">
+  <p v-text="msg"></p><!--p.textContent-->
+  <p v-html="msg"></p><!--p.innerHTML-->
+  <p ref="content">我是谁</p>
+  <button @click="read">读取</button>
+  <p v-cloak>{{msg}}</p>
+</div>
+
 <script type="text/javascript" src="../js/vue.js"></script>
 <script type="text/javascript">
-
+  new Vue({
+    el : '#app',
+    data : {
+      msg: '<a href="http://www.atguigu.com">尚硅谷</a>'
+    },
+    methods : {
+      read () {
+        alert(this.$refs.content.innerHTML)
+      }
+    }
+  })
 </script>
 </body>
 </html>
