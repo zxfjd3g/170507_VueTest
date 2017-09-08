@@ -34,15 +34,18 @@
 </div>
 
 <div id="test2">
-  <p v-upper-text="msg"></p>
-  <p v-lower-text="msg"></p><!--不能使用-->
+  <p v-upper-text="msg2"></p>
+  <p v-lower-text="msg2"></p><!--不能使用-->
 </div>
 
 <script type="text/javascript" src="../js/vue.js"></script>
 <script type="text/javascript">
 
   //注册全局指令
+  // el: 代表的是指令所有的标签对象
+  // binding: 包含了指令相关数据的对象
   Vue.directive('upper-text', function (el, binding) {
+    console.log(binding)
     el.textContent = binding.value.toUpperCase()
   })
 
@@ -61,7 +64,7 @@
   new Vue({
     el : '#test2',
     data : {
-      msg: 'NBA I Love This Game2'
+      msg2: 'NBA I Love This Game2'
     }
   })
 </script>
